@@ -1,4 +1,4 @@
-
+import random
 
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -45,19 +45,32 @@ reglementJeu()
 
 
 # nom des joueurs 
-nomJ1 = input("Nom du joueur 1:  ")
+nomJ1 = input(" Nom du joueur 1:  ")
 while nomJ1 == "":
-    print("Non invalide !")
-    nomJ1 = input("Nom du joueur 1:  ")
+    print(" ** Non invalide ! **")
+    nomJ1 = input(" Nom du joueur 1:  ")
 
-nomJ2 = input("Nom du joueur 2:  ")
+nomJ2 = input(" Nom du joueur 2:  ")
 while nomJ2 == "":
-    print("Non invalide !")
-    nomJ2 = input("Nom du joueur 2:  ")
+    print(" ** Non invalide ! **")
+    nomJ2 = input(" Nom du joueur 2:  ")
     
-ListeJoueur = list([nomJ1, nomJ2])
+
 
 # selection random 
+ordre = random.randint(1 , 2)
+if ordre == 1:
+    joueur1 = nomJ1
+    joueur2 = nomJ2
+else:
+    joueur1 = nomJ2
+    joueur2 = nomJ1
 
 
+print("|----------------------------------------------------------|")
+print("|              ordre de réponse aux questions              |")
+print("|----------------------------------------------------------|")
+print("| 1- " + joueur1)
+print("| 2- " + joueur2)
+print("|----------------------------------------------------------|")
 
