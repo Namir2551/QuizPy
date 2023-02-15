@@ -1,4 +1,5 @@
 import random
+import json
 
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -11,6 +12,8 @@ class Partie:
        self.listeReponsesJ2 = listeReponsesJ2
        self.nb_bonnesrepJ1 = nb_bonnesrepJ1
        self.nb_bonnesrepJ2 = nb_bonnesrepJ2
+       self.pointage1 = pointageJ1
+       self.pointage2 = pointageJ2
        
     
     # methode __repr__
@@ -73,4 +76,18 @@ print("|----------------------------------------------------------|")
 print("| 1- " + joueur1)
 print("| 2- " + joueur2)
 print("|----------------------------------------------------------|")
+
+
+# lecture dun fichier JSON
+
+with open ("questions.json", encoding='utf-8') as fichier:
+    data = json.load(fichier)
+
+cpt = 0
+listeReponsesJ1 = []
+listeReponsesJ2 = []
+nb_bonnesrepJ1 = 0
+nb_bonnesrepJ2 = 0
+pointageJ1 = 0 
+pointageJ2 = 0
 
