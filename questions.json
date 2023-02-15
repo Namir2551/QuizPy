@@ -1,0 +1,43 @@
+[
+{
+    "q":"Pour utiliser les objets connectés, on va utiliser lequel des nano-ordinateurs?",
+    "a":"Raspberry Pi",
+    "b":"Arduino",
+    "c":"Banana Pi",
+    "rep":"a",
+    "pts":2
+},
+{
+    "q":"Dans le cours, on va utiliser quel langage de programmation?",
+    "a":"Java",
+    "b":"C++",
+    "c":"Python",
+    "rep":"c",
+    "pts":2
+},
+{
+    "q":"Quelle environnement de développement on utilise dans le cours?",
+    "a":"Visual Studio Code",
+    "b":"Eclipse",
+    "c":"Android Studio",
+    "rep":"a",
+    "pts":1
+},
+{
+    "q":"Dans Python, pour mettre un commentaire, on utilise le symbole suivant:",
+    "a":"@",
+    "b":"#",
+    "c":"*",
+    "rep":"b",
+    "pts":1
+},
+{
+    "q":"Quelle méthode doit être utilisée pour enlever les espaces au dédut et à la fin",
+    "a":"replace",
+    "b":"split",
+    "c":"strip",
+    "rep":"c",
+    "pts":2
+}
+
+]
