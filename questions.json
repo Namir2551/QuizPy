@@ -38,6 +38,48 @@
     "c":"strip",
     "rep":"c",
     "pts":2
+},
+
+{
+   
+    "q":"quel est le plus grand pays du monde?",
+    "a":"Canada",
+    "b":"France",
+    "c":"Russie",
+    "rep":"c",
+    "pts":2
+},
+{
+    "q":"Qui a inventé le téléphone?",
+    "a":"Alexander Graham Bell",
+    "b":"Albert Einstein",
+    "c":"Thomas Edison",
+    "rep":"a",
+    "pts":2
+},
+{
+    "q":"Quel est le languague de programmation le plus simple parmis les 3 choix: ",
+    "a":"C++",
+    "b":"Python",
+    "c":"Java",
+    "rep":"b",
+    "pts":1
+},
+{
+    "q":"Quel language de programmation a t on utilisé dans le cours d'interface utilisateur?",
+    "a":"Java",
+    "b":"C++",
+    "c":"C#",
+    "rep":"c",
+    "pts":2
+},
+{
+    "q":"Quel est le pays le plus petit du monde",
+    "a":"Japon",
+    "b":"Le Vatican",
+    "c":"Haïti",
+    "rep":"b",
+    "pts":2
 }
 
 ]
