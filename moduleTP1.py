@@ -83,6 +83,8 @@ print("|----------------------------------------------------------|")
 with open ("questions.json", encoding='utf-8') as fichier:
     data = json.load(fichier)
 
+
+
 cpt = 0
 listeReponsesJ1 = []
 listeReponsesJ2 = []
@@ -91,4 +93,43 @@ nb_bonnesrepJ2 = 0
 pointageJ1 = 0 
 pointageJ2 = 0
 
-#
+
+# parcour json 
+for key in data:
+    cpt+=1 #compteur s
+    print(cpt,")",key['q'])
+    print("<a>", key['a'])
+    print("<b>", key['b'])
+    print("<c>", key['c'])
+    
+    
+    print()
+    if cpt%2 != 0: #Joueur 1 selon la selection
+        question = input(joueur1+", Entrez votre reponse (a/b/c): ")
+        while question != 'a' and question != 'b' and question != 'c':
+            print(" ** Choix invalide ** ")
+            question = input(joueur1+", Entrez votre reponse (a/b/c): ")
+        #reponse 
+        if question == key['rep']:
+            print("Bonne reponse!")
+            # point + 
+        else:
+            replique = input("Mauvaise reponse, réplique à " + joueur2 + " entrez votre réponse (a/b/c): ")
+            if replique == key['rep']:
+                print("Bonne réponse !")
+                #point + joueur2
+
+    if cpt%2 == 0: #Joueur 2 selon la selection
+        question = input(joueur2+", Entrez votre reponse (a/b/c)")
+        while question != 'a' and question != 'b' and question != 'c':
+            print(" ** Choix invalide ** ")
+            question = input(joueur2+", Entrez votre reponse (a/b/c)")
+        #reponse
+        if question == key['rep']:
+            print("Bonne reponse!")
+            # point + 
+        else:
+            replique = input("Mauvaise reponse, réplique à " + joueur1 + " entrez votre réponse (a/b/c): ")
+            if replique == key['rep']:
+                print("Bonne réponse !")
+                #point + joueur2
