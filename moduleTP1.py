@@ -1,5 +1,6 @@
 import random
 import json
+import datetime
 
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -23,13 +24,13 @@ class Partie:
     
     # mthode affiche tous les attributs 
     def afficherPartie(self):
-        print("Date: " + self.datePartie)
+        print("Date: " + str(self.datePartie))
         print("Joueur 1: " + self.nomJoueur1)
         print("Joueur 2: " + self.nomJoueur2)
-        print("Liste de réponse <Joueur 1>: " + self.listeReponsesJ1)
-        print("Liste de réponse <Joueur 2>: " + self.listeReponsesJ2)
-        print("Nombre de bonne réponse <Joueur 1>: " + self.nb_bonnesrepJ1)
-        print("Nombre de bonne réponse <Joueur 2>: " + self.nb_bonnesrepJ2)
+        print("Liste de réponse <Joueur 1>: " + str(self.listeReponsesJ1))
+        print("Liste de réponse <Joueur 2>: " + str(self.listeReponsesJ2))
+        print("Nombre de bonne réponse <Joueur 1>: " + str(self.nb_bonnesrepJ1))
+        print("Nombre de bonne réponse <Joueur 2>: " + str(self.nb_bonnesrepJ2))
            
         
 
@@ -112,12 +113,20 @@ for key in data:
         #reponse 
         if question == key['rep']:
             print("Bonne reponse!")
-            # point + 
+            nb_bonnesrepJ1 +=1 # ajoue des nbr de bonnes reponses 
+            pointageJ1 +=key['pts'] # ajoue des pts 
+            listeReponsesJ1.append(key[question]) #ajoue dans la liste les bonnes reponses 
+            
+            
         else:
             replique = input("Mauvaise reponse, réplique à " + joueur2 + " entrez votre réponse (a/b/c): ")
             if replique == key['rep']:
                 print("Bonne réponse !")
                 #point + joueur2
+                nb_bonnesrepJ2 +=1
+                pointageJ2 +=key['pts'] # ajoue des pts
+                listeReponsesJ2.append(key[question])
+                
 
     if cpt%2 == 0: #Joueur 2 selon la selection
         question = input(joueur2+", Entrez votre reponse (a/b/c)")
@@ -128,8 +137,24 @@ for key in data:
         if question == key['rep']:
             print("Bonne reponse!")
             # point + 
+            nb_bonnesrepJ2 +=1
+            pointageJ2 +=key['pts'] # ajoue des pts
+            listeReponsesJ2.append(key[question])
+            
         else:
             replique = input("Mauvaise reponse, réplique à " + joueur1 + " entrez votre réponse (a/b/c): ")
             if replique == key['rep']:
                 print("Bonne réponse !")
                 #point + joueur2
+                nb_bonnesrepJ1 +=1
+                pointageJ1 +=key['pts']
+                listeReponsesJ1.append(key[question])
+                
+#creation objet 
+print("=====================================")
+partie = Partie(str(datetime.datetime.today()),joueur1,joueur2,listeReponsesJ1,listeReponsesJ2,nb_bonnesrepJ1,nb_bonnesrepJ2, pointageJ1,pointageJ2)
+
+Partie.afficherPartie(partie)
+
+
+#json writing 
