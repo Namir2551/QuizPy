@@ -1,6 +1,7 @@
 import random
 import json
 import datetime
+import codecs
 
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -152,9 +153,25 @@ for key in data:
                 
 #creation objet 
 print("=====================================")
-partie = Partie(str(datetime.datetime.today()),joueur1,joueur2,listeReponsesJ1,listeReponsesJ2,nb_bonnesrepJ1,nb_bonnesrepJ2, pointageJ1,pointageJ2)
+partie = Partie(str(datetime.datetime.today()),joueur1,joueur2,listeReponsesJ1,listeReponsesJ2
+                ,nb_bonnesrepJ1,nb_bonnesrepJ2, pointageJ1,pointageJ2)
 
 Partie.afficherPartie(partie)
 
 
-#json writing 
+#Donnes a mettre dans json 
+partie_data = {
+                "Date":partie.datePartie,
+                "NomJ1": partie.nomJoueur1,
+                "ListeReponseJ1": partie.listeReponsesJ1,
+                "nbrBonneRepJ1":partie.nb_bonnesrepJ1,
+                "PointageJ1":partie.pointage1,
+                "NomJ2":partie.nomJoueur2,
+                "ListeReponseJ2":partie.listeReponsesJ2,
+                "nbrBonneRepJ2":partie.nb_bonnesrepJ2,
+                "PointageJ2": partie.pointage2
+                }
+
+#json writing
+with codecs.open("historique.json","a", encoding='utf-8') as fichierPartie:
+    json.dump(partie_data, fichierPartie, ensure_ascii=False, indent=4, sort_keys=True)
