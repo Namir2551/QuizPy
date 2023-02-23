@@ -113,21 +113,30 @@ for key in data:
             print(" ** Choix invalide ** ")
             question = input(joueur1+", Entrez votre reponse (a/b/c): ")
         #reponse 
+        listeReponsesJ1.append(key[question])
         if question == key['rep']:
             print("Bonne reponse!")
             nb_bonnesrepJ1 +=1 # ajoue des nbr de bonnes reponses 
             pointageJ1 +=key['pts'] # ajoue des pts 
-            listeReponsesJ1.append(key[question]) #ajoue dans la liste les bonnes reponses 
+            #listeReponsesJ1.append(key[question]) #ajoue dans la liste les bonnes reponses 
             
-            
+        
         else:
+            
             replique = input("Mauvaise reponse, réplique à " + joueur2 + " entrez votre réponse (a/b/c): ")
+            while replique != 'a' and replique != 'b' and replique != 'c':
+                print(" ** Choix invalide ** ")
+                replique = input("Mauvaise reponse, réplique à " + joueur2 + " entrez votre réponse (a/b/c): ")
+            listeReponsesJ2.append(key[question])
             if replique == key['rep']:
                 print("Bonne réponse !")
                 #point + joueur2
                 nb_bonnesrepJ2 +=1
                 pointageJ2 +=key['pts'] # ajoue des pts
-                listeReponsesJ2.append(key[question])
+                #listeReponsesJ2.append(key[question])
+            else:
+                print("Mauvaise réponse :(")
+                print("La bonne reponse été: <", key['rep'],">")
                 
 
     if cpt%2 == 0: #Joueur 2 selon la selection
@@ -136,29 +145,44 @@ for key in data:
             print(" ** Choix invalide ** ")
             question = input(joueur2+", Entrez votre reponse (a/b/c)")
         #reponse
+        listeReponsesJ2.append(key[question])
         if question == key['rep']:
             print("Bonne reponse!")
             # point + 
             nb_bonnesrepJ2 +=1
             pointageJ2 +=key['pts'] # ajoue des pts
-            listeReponsesJ2.append(key[question])
+            #listeReponsesJ2.append(key[question])
             
         else:
             replique = input("Mauvaise reponse, réplique à " + joueur1 + " entrez votre réponse (a/b/c): ")
+            while replique != 'a' and replique != 'b' and replique != 'c':
+                print(" ** Choix invalide ** ")
+                replique = input("Mauvaise reponse, réplique à " + joueur1 + " entrez votre réponse (a/b/c): ")
+            listeReponsesJ1.append(key[question])
             if replique == key['rep']:
                 print("Bonne réponse !")
                 #point + joueur2
                 nb_bonnesrepJ1 +=1
                 pointageJ1 +=key['pts']
-                listeReponsesJ1.append(key[question])
+                #listeReponsesJ1.append(key[question])
+            else:
+                print("Mauvaise réponse :(")
+                print("La bonne reponse été: <", key['rep'],">")
                 
 #creation objet 
-print("=====================================")
 partie = Partie(str(datetime.datetime.today()),joueur1,joueur2,listeReponsesJ1,listeReponsesJ2
                 ,nb_bonnesrepJ1,nb_bonnesrepJ2, pointageJ1,pointageJ2)
 
-Partie.afficherPartie(partie)
-
+print("=====================================")
+#Affichage 
+print(joueur1)
+print("Les points: ", pointageJ1)
+print("Le nombre de bonne réponse: " , nb_bonnesrepJ1)
+print()
+print(joueur2)
+print("Les points: ", pointageJ2)
+print("Le nombre de bonne réponse: " , nb_bonnesrepJ2)
+print("====================================")
 
 #Donnes a mettre dans json 
 partie_data = {
@@ -198,14 +222,14 @@ if os.path.exists("InfoPartie.json"):
 #Si non message d'erreur
 else:
     print()
-    print("========== ATTENTION ==========")
-    print("=    Fichier non disponible   =")
+    print("==================  ATTENTION  ==================")
+    print("=    Fichier non disponible création en cours.. =")
     with open("InfoPartie.json","w") as fichierJson:
         fichierJson.write('{')
         fichierJson.write('\n   "resultats":[')
         json.dump(partie_data,fichierJson, ensure_ascii=False, indent=4, sort_keys=True)
         fichierJson.write('\n     ]')
         fichierJson.write('\n}')
-    print("Fichier JSON creer !!")
+    print("=    Fichier JSON creer !!    =")
     print()
 

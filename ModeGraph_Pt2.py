@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import *
 from tkinter import  ttk, Tk
 from tkinter import Button, Listbox
+import json
+
+
 
 
 
@@ -15,7 +18,7 @@ class Fenetre:
         #bouton 
         self.btn_afficher = Button(principal, 
                                    text="Affichage données",
-                                   command=self.affichageData)
+                                   command=self.affichageDate)
         self.btn_afficher.pack(side=BOTTOM)#ajouter dans la fenetre
         
 
@@ -49,11 +52,23 @@ class Fenetre:
         self.lbl_nbrBonneRep = Label(principal, text="Nombre de bonne reponse: ")
         self.lbl_nbrBonneRep.pack()
     
+
+# ======= creation de la class =======
+
+
     def affichageData(self):
         pass
         
     def affichageDate(self):
-        pass
+        #click et dois afficher la date 
+        with open ("InfoPartie.json", encoding='utf-8') as fichier:
+            data = json.load(fichier)
+
+        for key in data:
+            print(key['Date'])
+
+        
+        
     
     def onSelect(self, evt):
         date = self.dateCombo.get()
