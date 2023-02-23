@@ -177,26 +177,35 @@ partie_data = {
 
  # si le fichier existe 
 if os.path.exists("InfoPartie.json"):
+    print()
+    print("====================================")
     with open("InfoPartie.json",encoding='utf-8') as fichier_json:#lire 
         data2 = json.load(fichier_json)
-        j = len(data2["resultats"])
+        taille = len(data2["resultats"])
             
     with codecs.open("InfoPartie.json", "a", encoding='utf-8') as InfoPartie:
         InfoPartie.seek(-4,2) #le curseur 
         InfoPartie.truncate()
-        if j >= 1:
-            
+        if taille >= 1:
             InfoPartie.write(",")
         #ajouter les informations dans le fichier json 
         json.dump(partie_data, InfoPartie, ensure_ascii=False, indent=4, sort_keys=True)
         InfoPartie.write("\n    ]")
-        
-        InfoPartie.write("\n}")
-        
+        InfoPartie.write("\n}")   
+    print("Les données JSON sont enregistrées !!") 
+    print() 
+          
 #Si non message d'erreur
 else:
     print()
     print("========== ATTENTION ==========")
     print("=    Fichier non disponible   =")
-    print("= Information non enregistrer =")
+    with open("InfoPartie.json","w") as fichierJson:
+        fichierJson.write('{')
+        fichierJson.write('\n   "resultats":[')
+        json.dump(partie_data,fichierJson, ensure_ascii=False, indent=4, sort_keys=True)
+        fichierJson.write('\n     ]')
+        fichierJson.write('\n}')
+    print("Fichier JSON creer !!")
+    print()
 
