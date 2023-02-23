@@ -8,6 +8,7 @@ import json
 
 
 
+
 class Fenetre: 
     def __init__(self, principal):
         self.principal = principal
@@ -27,7 +28,7 @@ class Fenetre:
         self.dateCombo = ttk.Combobox(principal, width=22,
                                       textvariable= self.dateChoisi)
     
-        self.dateCombo['values'] = ("coco","zozo","toto")
+        self.dateCombo['values'] = ()
         self.dateCombo['state'] = "readonly"
         self.dateCombo.pack() #ajouter dans la fenetre
         self.dateCombo.bind('<<ComboboxSelected>>',self.onSelect)
@@ -53,32 +54,69 @@ class Fenetre:
         self.lbl_nbrBonneRep.pack()
     
 
-# ======= creation de la class =======
-
-
     def affichageData(self):
         pass
         
     def affichageDate(self):
         #click et dois afficher la date 
-        with open ("InfoPartie.json", encoding='utf-8') as fichier:
-            data = json.load(fichier)
-
-        for key in data:
-            print(key['Date'])
-
+        cpt = 0
+        while len(ListePartie) > cpt:
+            self.dateCombo['values'] += (ListePartie[cpt].datePartie)
+            
         
         
-    
+           
     def onSelect(self, evt):
         date = self.dateCombo.get()
     
     def onSelectlistBox(self, evt):
         pass  
+# ======= creation de la class =======
+class Partie:
+    def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
+                 ,listeReponsesJ2, nb_bonnesrepJ1, nb_bonnesrepJ2, pointageJ1
+                 ,pointageJ2):
+       self.datePartie = datePartie
+       self.nomJoueur1 = nomJoueur1
+       self.nomJoueur2 = nomJoueur2
+       self.listeReponsesJ1 = listeReponsesJ1
+       self.listeReponsesJ2 = listeReponsesJ2
+       self.nb_bonnesrepJ1 = nb_bonnesrepJ1
+       self.nb_bonnesrepJ2 = nb_bonnesrepJ2
+       self.pointage1 = pointageJ1
+       self.pointage2 = pointageJ2
+       
+    
+    # methode __repr__
+    def __repr__ (self):
+        return self.datePartie + self.nomJoueur1 +self.nomJoueur2
+       
+    
+    # mthode affiche tous les attributs 
+    def afficherPartie(self):
+        print("Date: " + str(self.datePartie))
+        print("Joueur 1: " + self.nomJoueur1)
+        print("Joueur 2: " + self.nomJoueur2)
+        print("Liste de réponse <Joueur 1>: " + str(self.listeReponsesJ1))
+        print("Liste de réponse <Joueur 2>: " + str(self.listeReponsesJ2))
+        print("Nombre de bonne réponse <Joueur 1>: " + str(self.nb_bonnesrepJ1))
+        print("Nombre de bonne réponse <Joueur 2>: " + str(self.nb_bonnesrepJ2))
+           
+#creation du tableau de partieè
+ListePartie = []
+with open ("InfoPartie.json", encoding='utf-8') as fichier:
+    data = json.load(fichier)
+    for valeur in data['resultats']:
+        partie = Partie(str(data['Date']), data['NomJ1'],data['NomJ1'],
+        data['ListeReponseJ1'],data['ListeReponseJ2'], data['nbrBonneRepJ1'],
+        data['nbrBonneRepJ2'],data['PointageJ1'],data['PointageJ2'])
 
-        
+    ListePartie.append(partie)
+
+   
 
 root = Tk()
 app = Fenetre(root)
+
 root.mainloop()
 
