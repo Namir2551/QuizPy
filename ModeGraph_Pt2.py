@@ -18,7 +18,9 @@ class Fenetre:
         #bouton 
         self.btn_afficher = Button(principal, 
                                    text="Affichage données",
-                                   command=self.affichageDate)
+                                   command=self.affichageDate,
+                                   borderwidth= 3,
+                                   bg="blue")
         self.btn_afficher.pack(side=BOTTOM)#ajouter dans la fenetre
         
 
@@ -26,7 +28,7 @@ class Fenetre:
         self.dateChoisi = tk.StringVar()
         self.dateCombo = ttk.Combobox(principal, width=22,
                                       textvariable= self.dateChoisi)
-        self.dateCombo['values'] = ()
+        self.dateCombo['values'] = " "
         self.dateCombo['state'] = "readonly"
         self.dateCombo.pack() #ajouter dans la fenetre
         self.dateCombo.bind('<<ComboboxSelected>>',self.onSelectCombo)
@@ -38,6 +40,7 @@ class Fenetre:
 
         #text
         self.listReponse = tk.Text(principal, width=19, height=10)
+    
         self.listReponse.pack() #ajouter dans la fenetre 
 
         #Labels 
@@ -51,28 +54,28 @@ class Fenetre:
     
 
     def affichageData(self):
+        self.listReponse.insert(INSERT,"Hi")
         pass
         
     def affichageDate(self):
         #click et dois afficher la date 
         #print(ListePartie)
+        
         for i in ListePartie:
-            self.dateCombo['values'] += (i.datePartie)
+            self.dateCombo['values'] += (i.datePartie,)
             
  
     def onSelectCombo(self, evt): 
-        #date = self.dateCombo.get()
+        #Afficher les 2 joueur de la partie 
+        self.lst_npmJoueur.delete(0,1)
         self.lst_npmJoueur.insert(END,ListePartie[self.dateCombo.current()].nomJoueur1)
         self.lst_npmJoueur.insert(END,ListePartie[self.dateCombo.current()].nomJoueur2)
+        
             
+    def onSelectlistBox(self, evt): 
+        self.listReponse.insert(INSERT,"Hi")
+        pass       
     
-    def onSelectlistBox(self, evt):
-        pass
-        
-               
-        
-            
-         
 # ======= creation de la class =======
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -109,16 +112,16 @@ ListePartie = []
 with open ("InfoPartie.json", encoding='utf-8') as fichier:
     data = json.load(fichier)
     for valeur in data['resultats']:
-        partie = Partie(str(valeur['Date']), str(valeur['NomJ1']),str(valeur['NomJ2']),
+        partie = Partie(str(valeur['Date']).replace(" ", "-"), str(valeur['NomJ1']),str(valeur['NomJ2']),
         str(valeur['ListeReponseJ1']),str(valeur['ListeReponseJ2']), str(valeur['nbrBonneRepJ1']),
         str(valeur['nbrBonneRepJ2']),str(valeur['PointageJ1']),str(valeur['PointageJ2']))
 
-    ListePartie.append(partie)
+        ListePartie.append(partie)
 
    
 
 root = Tk()
 app = Fenetre(root)
-
+root.configure(bg="gray")
 root.mainloop()
 
