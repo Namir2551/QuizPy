@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import  ttk, Tk
-from tkinter import Button, Listbox
+from tkinter import  ttk, Tk,Button
 import json
 
 
@@ -27,18 +26,15 @@ class Fenetre:
         self.dateChoisi = tk.StringVar()
         self.dateCombo = ttk.Combobox(principal, width=22,
                                       textvariable= self.dateChoisi)
-    
         self.dateCombo['values'] = ()
         self.dateCombo['state'] = "readonly"
         self.dateCombo.pack() #ajouter dans la fenetre
-        self.dateCombo.bind('<<ComboboxSelected>>',self.onSelect)
+        self.dateCombo.bind('<<ComboboxSelected>>',self.onSelectCombo)
         
         #listBox 
-        lst_npmJoueur = tk.Listbox(principal,height=3,width=25)
-        lst_npmJoueur.insert(1,"Joueur 1")
-        lst_npmJoueur.insert(2,"Joueur 2")
-        lst_npmJoueur.bind("<<ListBoxSelect>>", self.onSelectlistBox)
-        lst_npmJoueur.pack()#ajouter dans la fenetre
+        self.lst_npmJoueur = tk.Listbox(principal,height=3,width=25)
+        self.lst_npmJoueur.bind("<<ListBoxSelect>>", self.onSelectlistBox)
+        self.lst_npmJoueur.pack()#ajouter dans la fenetre
 
         #text
         self.listReponse = tk.Text(principal, width=19, height=10)
@@ -59,18 +55,24 @@ class Fenetre:
         
     def affichageDate(self):
         #click et dois afficher la date 
-        cpt = 0
-        while len(ListePartie) > cpt:
-            self.dateCombo['values'] += (ListePartie[cpt].datePartie)
+        #print(ListePartie)
+        for i in ListePartie:
+            self.dateCombo['values'] += (i.datePartie)
             
-        
-        
-           
-    def onSelect(self, evt):
-        date = self.dateCombo.get()
+ 
+    def onSelectCombo(self, evt): 
+        #date = self.dateCombo.get()
+        self.lst_npmJoueur.insert(END,ListePartie[self.dateCombo.current()].nomJoueur1)
+        self.lst_npmJoueur.insert(END,ListePartie[self.dateCombo.current()].nomJoueur2)
+            
     
     def onSelectlistBox(self, evt):
-        pass  
+        pass
+        
+               
+        
+            
+         
 # ======= creation de la class =======
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
@@ -89,7 +91,7 @@ class Partie:
     
     # methode __repr__
     def __repr__ (self):
-        return self.datePartie + self.nomJoueur1 +self.nomJoueur2
+        return self.datePartie +" "+self.nomJoueur1 +" "+self.nomJoueur2 + " " +self.listeReponsesJ1 +" "+self.listeReponsesJ2 +" "+ str(self.nb_bonnesrepJ1) + " " + str(self.nb_bonnesrepJ2)
        
     
     # mthode affiche tous les attributs 
@@ -101,15 +103,15 @@ class Partie:
         print("Liste de réponse <Joueur 2>: " + str(self.listeReponsesJ2))
         print("Nombre de bonne réponse <Joueur 1>: " + str(self.nb_bonnesrepJ1))
         print("Nombre de bonne réponse <Joueur 2>: " + str(self.nb_bonnesrepJ2))
-           
+        
 #creation du tableau de partieè
 ListePartie = []
 with open ("InfoPartie.json", encoding='utf-8') as fichier:
     data = json.load(fichier)
     for valeur in data['resultats']:
-        partie = Partie(str(data['Date']), data['NomJ1'],data['NomJ1'],
-        data['ListeReponseJ1'],data['ListeReponseJ2'], data['nbrBonneRepJ1'],
-        data['nbrBonneRepJ2'],data['PointageJ1'],data['PointageJ2'])
+        partie = Partie(str(valeur['Date']), str(valeur['NomJ1']),str(valeur['NomJ2']),
+        str(valeur['ListeReponseJ1']),str(valeur['ListeReponseJ2']), str(valeur['nbrBonneRepJ1']),
+        str(valeur['nbrBonneRepJ2']),str(valeur['PointageJ1']),str(valeur['PointageJ2']))
 
     ListePartie.append(partie)
 
