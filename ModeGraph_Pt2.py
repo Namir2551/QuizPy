@@ -16,7 +16,7 @@ class Fenetre:
                                    text="Affichage données",
                                    command=self.affichageDate,
                                    borderwidth= 4,
-                                   height=2, width=20)
+                                   height=2, width=20,background="#0099FF")
         self.btn_afficher.pack(side=BOTTOM,)#ajouter dans la fenetre
         
 
@@ -49,9 +49,7 @@ class Fenetre:
     
         
     def affichageDate(self):
-        #click et dois afficher la date 
-        print(ListePartie)
-        
+        #click et dois afficher la date   
         for i in ListePartie:
             self.dateCombo['values'] += (i.datePartie,)
         
@@ -87,10 +85,6 @@ class Fenetre:
             self.lbl_nbrBonneRep['text'] = "Nombre de bonne reponse: "+str(ListePartie[self.dateCombo.current()].nb_bonnesrepJ2)
 
             
-
-        
-               
-    
 # ======= creation de la class =======
 class Partie:
     def __init__(self,datePartie, nomJoueur1, nomJoueur2, listeReponsesJ1
