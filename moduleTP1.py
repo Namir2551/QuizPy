@@ -218,11 +218,11 @@ if os.path.exists("InfoPartie.json"):
         InfoPartie.write("\n}")   
     print("Les données JSON sont enregistrées !!") 
     print() 
-          
+           
 #Si non message d'erreur
 else:
     print()
-    print("==================  ATTENTION  ==================")
+    print("==================  ATTENTION  ===================")
     print("=    Fichier non disponible création en cours.. =")
     with open("InfoPartie.json","w") as fichierJson:
         fichierJson.write('{')
